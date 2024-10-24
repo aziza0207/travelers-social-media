@@ -15,8 +15,11 @@ class Country(models.Model):
     capital = models.CharField(max_length=255, verbose_name="Столица")
     alt_spellings = ArrayField(
         models.CharField(max_length=200),
-        blank=True, verbose_name="Альтернативные написания"
+        blank=True,
+        verbose_name="Альтернативные написания",
     )
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Дата обновления")
 
     class Meta:
         verbose_name_plural = "Страна"

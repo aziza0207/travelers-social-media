@@ -15,6 +15,8 @@ class PostRating(models.Model):
     rating = models.IntegerField(
         choices=[(1, "Повысить"), (-1, "Понизить")], verbose_name="Рейтинг"
     )
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Дата обновления")
 
     class Meta:
         verbose_name = "Рейтинг поста"
@@ -24,4 +26,4 @@ class PostRating(models.Model):
         ]
 
     def __str__(self):
-        return f"Рейтинг {self.rating} от {self.user.email} для поста {self.post.name}"
+        return f"Рейтинг {self.rating} от {self.user.full_name} для поста {self.post.name}"

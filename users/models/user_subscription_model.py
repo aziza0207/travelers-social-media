@@ -15,6 +15,8 @@ class UserSubscription(models.Model):
         verbose_name="Подписан на",
     )
 
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата подписки")
+
     class Meta:
         constraints = [
             models.UniqueConstraint(

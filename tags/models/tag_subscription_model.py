@@ -14,6 +14,7 @@ class TagSubscription(models.Model):
         on_delete=models.CASCADE,
         verbose_name="Тег",
     )
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата подписки")
 
     class Meta:
         constraints = [

@@ -19,6 +19,7 @@ class Post(models.Model):
     description = models.TextField(verbose_name="Описание")
     is_visible = models.BooleanField(default=True, verbose_name="Видимый")
     tags = models.ManyToManyField("tags.Tag", default=None, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
 
     class Meta:
         verbose_name_plural = "Пост"

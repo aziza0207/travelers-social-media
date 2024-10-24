@@ -6,6 +6,7 @@ class CountrySubscription(models.Model):
                              verbose_name="Пользователь")
     country = models.ForeignKey("countries.Country", related_name="country_subscriptions", on_delete=models.CASCADE,
                                 verbose_name="Страна")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата подписки")
 
     class Meta:
         constraints = [
