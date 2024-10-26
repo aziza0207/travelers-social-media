@@ -10,6 +10,7 @@ class UserFactory(factory.django.DjangoModelFactory):
     first_name = factory.Faker("first_name")
     last_name = factory.Faker("last_name")
     email = factory.Faker("email")
+    joined_at = now() - datetime.timedelta(days=1)
 
     class Meta:
         model = User

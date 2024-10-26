@@ -1,7 +1,16 @@
 from django.db import models
+from django.conf import settings
 
 
 class Comment(models.Model):
+    parent = models.ForeignKey(
+        "self",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="replies",
+        verbose_name="Родительский комментарий",
+    )
     post = models.ForeignKey(
         "posts.Post",
         on_delete=models.CASCADE,
@@ -9,7 +18,7 @@ class Comment(models.Model):
         verbose_name="Пост",
     )
     user = models.ForeignKey(
-        "users.User", on_delete=models.CASCADE, verbose_name="Пользователь"
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Пользователь"
     )
     content = models.TextField(verbose_name="Комментарий")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")

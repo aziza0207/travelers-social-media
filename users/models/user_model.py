@@ -2,12 +2,13 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from .managers import CustomUserManager
+from users.manager import CustomUserManager
 
 
 class User(AbstractUser):
     username = None
     email = models.EmailField(_("email address"), unique=True)
+    joined_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата регистрации")
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []

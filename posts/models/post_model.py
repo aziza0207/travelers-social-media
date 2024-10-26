@@ -1,9 +1,12 @@
 from django.db import models
+from django.conf import settings
+from autoslug import AutoSlugField
 
 
 class Post(models.Model):
+    slug = AutoSlugField(unique=True, db_index=True)
     author = models.ForeignKey(
-        "users.User",
+        settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="author_posts",
         verbose_name="Создатель",
@@ -26,4 +29,4 @@ class Post(models.Model):
         verbose_name = "Посты"
 
     def __str__(self):
-        return self.name
+        return f"{self.name} от {self.author.email}"

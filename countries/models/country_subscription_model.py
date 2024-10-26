@@ -1,8 +1,10 @@
 from django.db import models
+from django.conf import settings
 
 
 class CountrySubscription(models.Model):
-    user = models.ForeignKey("users.User", related_name="user_country_subscriptions", on_delete=models.CASCADE,
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="user_country_subscriptions",
+                             on_delete=models.CASCADE,
                              verbose_name="Пользователь")
     country = models.ForeignKey("countries.Country", related_name="country_subscriptions", on_delete=models.CASCADE,
                                 verbose_name="Страна")

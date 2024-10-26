@@ -1,3 +1,8 @@
-from django.contrib import admin
+from django.contrib.admin import register, ModelAdmin
+from .models import Post
 
-# Register your models here.
+
+@register(Post)
+class PostAdmin(ModelAdmin):
+    prepopulated_fields = {"slug": ("name",)}
+

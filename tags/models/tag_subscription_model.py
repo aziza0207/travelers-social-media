@@ -1,9 +1,10 @@
 from django.db import models
+from django.conf import settings
 
 
 class TagSubscription(models.Model):
     user = models.ForeignKey(
-        "users.User",
+        settings.AUTH_USER_MODEL,
         related_name="user_tag_subscriptions",
         on_delete=models.CASCADE,
         verbose_name="Пользователь",

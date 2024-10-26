@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from django.db.models import UniqueConstraint
 
 
@@ -10,7 +11,7 @@ class PostRating(models.Model):
         verbose_name="Пост",
     )
     user = models.ForeignKey(
-        "users.User", on_delete=models.CASCADE, verbose_name="Пользователь"
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Пользователь"
     )
     rating = models.IntegerField(
         choices=[(1, "Повысить"), (-1, "Понизить")], verbose_name="Рейтинг"
