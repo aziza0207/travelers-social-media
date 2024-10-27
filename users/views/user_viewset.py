@@ -1,4 +1,4 @@
-from django.db.models import Prefetch, OuterRef, Subquery, Count
+from django.db.models import Prefetch
 from rest_framework import viewsets
 from drf_spectacular.utils import extend_schema
 from rest_framework.decorators import action
@@ -6,14 +6,14 @@ from rest_framework.exceptions import ValidationError, AuthenticationFailed
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.response import Response
 from rest_framework import status
-from users.models import User
-from posts.models import Post
-from users.serializers import (
+from ..models import User
+from ..serializers import (
     UserRegisterSerializer,
     UserLoginSerializer,
     UserListSerializer,
     UserDetailSerializer,
 )
+from posts.models import Post
 
 
 @extend_schema(tags=["User"])

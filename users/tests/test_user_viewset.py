@@ -13,6 +13,7 @@ class UserViewSetTest(APITestCase):
     def setUp(self):
         self.register_url: str = reverse("user-register")
         self.list_url: str = reverse("user-list")
+        self.login_url: str = reverse("user-login")
         self.detail_url: str = "user-detail"
 
     def test_create_user(self):
@@ -33,6 +34,18 @@ class UserViewSetTest(APITestCase):
             self.assertEqual(new_user.last_name, payload["last_name"])
             self.assertEqual(new_user.email, payload["email"])
             self.assertNotIn("password", res_json)
+
+    def test_user_login(self):
+        payload = {
+            "email": "test-user@example.com",
+            "password": "test-password"
+        }
+        user = User.objects.create_user(**payload)
+        with self.assertNumQueries(1):
+            res = self.client.post(self.login_url, data=payload)
+            self.assertEqual(res.status_code, status.HTTP_200_OK)
+            self.assertIn("access_token", res.data)
+            self.assertIn("refresh_token", res.data)
 
     def test_user_list(self):
         users = [UserFactory() for _ in range(10)]

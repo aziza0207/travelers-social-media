@@ -63,10 +63,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-
 if DEBUG:
     INSTALLED_APPS.append("debug_toolbar")
     MIDDLEWARE.append("debug_toolbar.middleware.DebugToolbarMiddleware")
+
 
     def show_toolbar_callback(_):
         return DEBUG
@@ -161,6 +161,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

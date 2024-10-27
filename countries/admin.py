@@ -1,3 +1,7 @@
-from django.contrib import admin
+from django.contrib.admin import register, ModelAdmin
+from .models import Country
 
-# Register your models here.
+
+@register(Country)
+class CountryAdmin(ModelAdmin):
+    prepopulated_fields = {"slug": ("name",)}

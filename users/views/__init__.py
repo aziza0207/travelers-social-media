@@ -1,1 +1,2 @@
 from .user_viewset import UserViewSet
+from .user_subscription_viewset import UserSubscriptionViewSet
