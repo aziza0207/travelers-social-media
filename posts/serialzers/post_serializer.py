@@ -1,9 +1,10 @@
 from rest_framework import serializers
+from rest_framework.exceptions import PermissionDenied
 from countries.models import Country
 from ..models import Post, PostImage
 from tags.models import Tag
 from ..utils import compression_photo
-
+from .comment_serializer import CommentSerializer
 
 class PostSerializer(serializers.ModelSerializer):
     """Сериализатор поста."""
@@ -37,6 +38,11 @@ class PostCreateSerializer(serializers.ModelSerializer):
             )
         return value
 
+    def validate(self, attrs):
+        if not self.context['request'].user.is_allowed_post:
+            raise PermissionDenied("Вам запрещено создавать посты.")
+        return super().validate(attrs)
+
     def create(self, validated_data):
         images = validated_data.pop("images", [])
         if len(images) > 10:
@@ -45,3 +51,10 @@ class PostCreateSerializer(serializers.ModelSerializer):
         if images:
             PostImage.objects.bulk_create(compression_photo(post=post, images=images))
         return post
+
+
+class PostDetailSerializer(PostSerializer):
+    comments = CommentSerializer(many=True)
+    class Meta:
+        model = Post
+        fields = PostSerializer.Meta.fields + ("comments",)

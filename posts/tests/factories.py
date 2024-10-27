@@ -1,7 +1,7 @@
 import datetime
 import factory
 from django.utils.timezone import now
-from ..models import Post
+from ..models import Post, Comment
 from users.tests.factories import UserFactory
 from countries.tests.factories import CountryFactory
 
@@ -19,3 +19,16 @@ class PostFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = Post
+
+
+class CommentFactory(factory.django.DjangoModelFactory):
+    """Фабрика комментариев"""
+
+    user = factory.SubFactory(UserFactory)
+    post = factory.SubFactory(PostFactory)
+    content = factory.Faker("sentence")
+    created_at = now() - datetime.timedelta(days=1)
+    updated_at = now() - datetime.timedelta(days=1)
+
+    class Meta:
+        model = Comment

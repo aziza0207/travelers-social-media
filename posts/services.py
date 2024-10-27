@@ -25,6 +25,7 @@ class PostService(Service):
     def get_subscribed_posts(cls, user):
         user_countries = user.user_country_subscriptions.values_list("country", flat=True)
         user_tags = user.user_tag_subscriptions.values_list("tag", flat=True)
+
         user_subscribed_users = user.subscriptions.values_list("subscribed_to", flat=True)
 
         subscribed_posts = cls.model.objects.filter(

@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import User
+from django.contrib.admin import register, ModelAdmin
+from .models import User, UserSubscription
+from common.custom_admin import ReadOnlyAdmin
 
 
 class CustomUserAdmin(UserAdmin):
@@ -11,6 +13,9 @@ class CustomUserAdmin(UserAdmin):
         "email",
         "is_staff",
         "is_active",
+        "is_blocked",
+        "is_allowed_post"
+
     )
     list_filter = (
         "email",
@@ -44,8 +49,16 @@ class CustomUserAdmin(UserAdmin):
     list_display_links = ("first_name",
                           "last_name",
                           "email",)
-    search_fields = ("email",)
+
+    search_fields = ("email", "first_name", "last_name")
+
     ordering = ("email",)
 
 
 admin.site.register(User, CustomUserAdmin)
+
+
+@register(UserSubscription)
+class UserSubscription(ReadOnlyAdmin):
+    list_display = ["subscriber", "subscribed_to"]
+    list_display_links = ["subscriber", "subscribed_to"]

@@ -1,12 +1,13 @@
 import datetime
 import factory
 from django.utils.timezone import now
-from ..models import Country
-
+from ..models import Country, CountrySubscription
+from users.tests.factories import UserFactory
 
 class CountryFactory(factory.django.DjangoModelFactory):
     """Фабрика страны"""
 
+    slug = factory.Sequence(lambda x: f"slug_{x}")
     name = factory.Faker("country")
     capital = factory.Faker("city")
     region = factory.Faker("word")
@@ -17,3 +18,15 @@ class CountryFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = Country
+
+
+class CountrySubscriptionFactory(factory.django.DjangoModelFactory):
+    """Фабрика подпсики на страну"""
+
+    user = factory.SubFactory(UserFactory)
+    country = factory.SubFactory(CountryFactory)
+    created_at = now() - datetime.timedelta(days=1)
+
+    class Meta:
+        model = CountrySubscription
+

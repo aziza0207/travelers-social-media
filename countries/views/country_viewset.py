@@ -4,11 +4,13 @@ from drf_spectacular.utils import extend_schema
 from posts.models import Post
 from ..models import Country
 from ..serializers import CountryListSerializer, CountryDetailSerializer
+from common.permissions import IsAuthenticatedNotAdmin
 
 
 @extend_schema(tags=["Country"])
 class CountryViewSet(viewsets.ReadOnlyModelViewSet):
-    lookup_field = "pk"
+    permission_classes = (IsAuthenticatedNotAdmin,)
+    lookup_field = "slug"
 
     def get_queryset(self):
         queryset = Country.objects.annotate(post_count=Count("country_posts")).filter(

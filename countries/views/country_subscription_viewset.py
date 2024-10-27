@@ -1,6 +1,7 @@
 from drf_spectacular.utils import extend_schema
 from rest_framework import viewsets, mixins, status
 from rest_framework.generics import get_object_or_404
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from ..models import CountrySubscription, Country
@@ -8,16 +9,17 @@ from ..models import CountrySubscription, Country
 
 @extend_schema(tags=["CountrySubscription"])
 class CountrySubscriptionViewSet(viewsets.GenericViewSet, mixins.ListModelMixin):
+    permission_classes = (IsAuthenticated, )
     queryset = CountrySubscription.objects.all()
-    lookup_field = "country_pk"
+    lookup_field = "slug"
 
     def get_queryset(self):
         user = self.request.user
         return self.queryset.filter(user=user)
 
     @action(detail=False, methods=["post"])
-    def subscribe(self, request, country_pk=None):
-        country = get_object_or_404(Country, pk=country_pk)
+    def subscribe(self, request, slug=None):
+        country = get_object_or_404(Country, slug=slug)
         subscription, created = CountrySubscription.objects.get_or_create(user=request.user, country=country)
 
         if created:
@@ -25,8 +27,8 @@ class CountrySubscriptionViewSet(viewsets.GenericViewSet, mixins.ListModelMixin)
         return Response({"detail": "Вы уже подписаны"}, status=status.HTTP_200_OK)
 
     @action(detail=False, methods=["delete"])
-    def unsubscribe(self, request, country_pk=None):
-        country = get_object_or_404(Country, pk=country_pk)
+    def unsubscribe(self, request, slug=None):
+        country = get_object_or_404(Country, slug=slug)
         subscription = CountrySubscription.objects.filter(user=request.user, country=country).first()
 
         if subscription:

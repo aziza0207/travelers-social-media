@@ -13,7 +13,7 @@ class PostImage(models.Model):
 
     image = models.ImageField(
         "Фотография",
-        upload_to="posts/post_image/image",
+        upload_to="posts/post_image",
         blank=True,
         null=True,
     )

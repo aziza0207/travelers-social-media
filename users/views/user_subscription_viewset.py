@@ -1,13 +1,17 @@
 from django.shortcuts import get_object_or_404
+from rest_framework.permissions import IsAuthenticated
 from drf_spectacular.utils import extend_schema
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from ..models import UserSubscription, User
+from ..serializers import UserSubscriptionCreateSerializer
 
 
 @extend_schema(tags=["UserSubscription"])
 class UserSubscriptionViewSet(viewsets.GenericViewSet):
+    permission_classes = (IsAuthenticated, )
+    serializer_class = UserSubscriptionCreateSerializer
     queryset = UserSubscription.objects.all()
     lookup_field = "user_pk"
 

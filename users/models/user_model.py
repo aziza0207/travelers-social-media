@@ -7,8 +7,16 @@ from users.manager import CustomUserManager
 
 class User(AbstractUser):
     username = None
+    image = models.ImageField(
+        "Фотография",
+        upload_to="users/user_image",
+        blank=True,
+        null=True,
+    )
     email = models.EmailField(_("email address"), unique=True)
     joined_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата регистрации")
+    is_blocked = models.BooleanField(default=False, verbose_name="Заблокирован")
+    is_allowed_post = models.BooleanField(default=True, verbose_name="Может ли создавать посты")
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []

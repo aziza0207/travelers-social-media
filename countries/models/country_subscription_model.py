@@ -11,11 +11,6 @@ class CountrySubscription(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата подписки")
 
     class Meta:
-        constraints = [
-            models.UniqueConstraint(
-                fields=["user", "country"], name="unique_user_country_subscription"
-            )
-        ]
         verbose_name = "Подписка на страну"
         verbose_name_plural = "Подписки на страны"
 
