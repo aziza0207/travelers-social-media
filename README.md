@@ -11,6 +11,10 @@ SQL_USER=hello_django
 SQL_PASSWORD=hello_django
 SQL_HOST=db
 SQL_PORT=5432
+
+DEFAULT_ADMIN_EMAIL=admin@example.com
+DEFAULT_ADMIN_PASSWORD=123
+
 ```
 и env.db 
 
