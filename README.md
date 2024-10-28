@@ -1,5 +1,7 @@
 ## Локальный запуск приложения через docker-compose
 
+Наберите команду в терминале
+
 ```shell
  docker compose up --build
 
