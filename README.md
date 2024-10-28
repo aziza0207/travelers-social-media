@@ -1,7 +1,8 @@
 ## Локальный запуск приложения через docker-compose
 
 ```shell
-docker-compose --build up
+ docker compose up --build
+
 ```
 Создайте забудьте создать файл .env
 
