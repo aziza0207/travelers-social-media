@@ -25,7 +25,13 @@ POSTGRES_PASSWORD=hello_django
 POSTGRES_DB=hello_django
 
 ```
+при необходимости найти разрешение на исполнение в терминале
 
+```shell
+RUN chmod +x /entrypoint.sh
+```
+
+```
 
 ### После разворота
 
