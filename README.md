@@ -28,9 +28,9 @@ POSTGRES_DB=hello_django
 
 ### После разворота
 
-Swagger - http://0.0.0.0:8000/api/docs/
+Swagger - http://0.0.0.0/api/docs/
 
-Admin - http://0.0.0.0:8000/admin/
+Admin - http://0.0.0.0/admin/
 
 ## Локальный запуск приложения без докер
 
@@ -53,10 +53,22 @@ pip install -r requirements.txt
 ```shell
 python manage.py migrate
 ```
-
+для заполнения базы странами
 ```shell
 python manage.py fetch_countries
 ```
+для запуска приложения
+```shell
+python manage.py runserver
+```
+
+### После разворота
+
+Swagger - http://0.0.0.0:8000/api/docs/
+
+Admin - http://0.0.0.0::8000/admin/
+
+
 
 
 
