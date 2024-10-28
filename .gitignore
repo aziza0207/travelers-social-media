@@ -78,7 +78,7 @@ target/
 celerybeat-schedule
 
 # dotenv
-.env.example
+.env
 
 # virtualenv
 venv/
@@ -185,5 +185,5 @@ idea folder, uncomment if you don't need it
 .idea
 media
 .pytest_cache
-.env.db.example
+.env.db
 

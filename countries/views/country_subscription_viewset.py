@@ -5,11 +5,13 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from ..models import CountrySubscription, Country
+from ..serializers import CountrySubscriptionSerializer
 
 
 @extend_schema(tags=["CountrySubscription"])
 class CountrySubscriptionViewSet(viewsets.GenericViewSet, mixins.ListModelMixin):
-    permission_classes = (IsAuthenticated, )
+    serializer_class = CountrySubscriptionSerializer
+    permission_classes = (IsAuthenticated,)
     queryset = CountrySubscription.objects.all()
     lookup_field = "slug"
 

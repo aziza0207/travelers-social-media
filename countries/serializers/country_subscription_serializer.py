@@ -3,9 +3,11 @@ from ..models import Country, CountrySubscription
 
 
 class CountrySubscriptionSerializer(serializers.ModelSerializer):
-    country = serializers.PrimaryKeyRelatedField(
-        queryset=Country.objects.all())
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
         model = CountrySubscription
-        fields = ("country",)
+        fields = ("user",)
+
+
+
