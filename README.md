@@ -30,6 +30,7 @@ chmod +x /entrypoint.sh
 ### После разворота
 
 Swagger - http://0.0.0.0/api/docs/
+
 Admin - http://0.0.0.0/admin/
 
 ## Локальный запуск приложения без докер
