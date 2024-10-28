@@ -32,18 +32,32 @@ Swagger - http://0.0.0.0:8000/api/docs/
 
 Admin - http://0.0.0.0:8000/admin/
 
-## Локальный запуск приложения через docker-compose
+## Локальный запуск приложения без докер
 
 Создайте файл .env
-
-
 ```shell
 SECRET_KEY=my_secret
 SQL_ENGINE=django.db.backends.postgresql
-SQL_DATABASE=
-SQL_USER=
-SQL_PASSWORD=
+SQL_DATABASE=Ваша база данных
+SQL_USER=Ваше имя пользователя
+SQL_PASSWORD=Ваш пароль
 SQL_HOST=localhost
 SQL_PORT=5432
 ```
+Установите зависимости
+
+```shell
+pip install -r requirements.txt
+```
+Далее наберите команду
+```shell
+python manage.py migrate
+```
+
+```shell
+python manage.py fetch_countries
+```
+
+
+
 
