@@ -26,6 +26,7 @@ POSTGRES_DB=hello_django
 
 ```
 
+
 ### После разворота
 
 Swagger - http://0.0.0.0/api/docs/
