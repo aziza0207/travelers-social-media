@@ -6,7 +6,7 @@
  docker compose up --build
 
 ```
-Создайте файл .env
+Создайте файл .env в корневой директории
 
 ```shell
 SECRET_KEY=my_secret
