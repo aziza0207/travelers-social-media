@@ -31,8 +31,6 @@ POSTGRES_DB=hello_django
 chmod +x /entrypoint.sh
 ```
 
-```
-
 ### После разворота
 
 Swagger - http://0.0.0.0/api/docs/
