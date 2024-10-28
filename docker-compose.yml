@@ -10,7 +10,7 @@ services:
       - static_volume:/usr/src/app/static
       - media_volume:/usr/src/app/media
     env_file:
-      - .env
+      - .env.example
     depends_on:
       - db
       - redis
@@ -20,7 +20,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
-       - .env.db
+       - .env.db.example
 
   redis:
     image: "redis:latest"
