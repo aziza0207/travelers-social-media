@@ -28,7 +28,7 @@ POSTGRES_DB=hello_django
 при необходимости найти разрешение на исполнение в терминале
 
 ```shell
-RUN chmod +x /entrypoint.sh
+chmod +x /entrypoint.sh
 ```
 
 ```
