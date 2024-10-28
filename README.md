@@ -37,6 +37,7 @@ chmod +x /entrypoint.sh
 Swagger - http://0.0.0.0/api/docs/
 
 Пароль для входа можно взять из .env
+
 Admin - http://0.0.0.0/admin/ 
 
 ### Локальный запуск приложения без докер
