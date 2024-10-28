@@ -13,6 +13,7 @@ import datetime
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+from sys import argv
 
 load_dotenv()
 
@@ -28,7 +29,10 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
+
+TESTING = "test" in argv or len(argv) >= 1 and "pytest" in argv[0]
+DEBUG = os.environ.get("DEBUG", "True") == "True" and not TESTING
 
 # Application definition
 
@@ -71,6 +75,7 @@ if DEBUG:
     def show_toolbar_callback(_):
         return DEBUG
 
+
     DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": "root.settings.show_toolbar_callback"}
 
 ROOT_URLCONF = 'root.urls'
@@ -97,18 +102,6 @@ WSGI_APPLICATION = 'root.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://redis:6379',
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient"
-        },
-
-    }
-
-}
-
 DATABASES = {
     "default": {
         "ENGINE": os.environ.get("SQL_ENGINE"),
@@ -119,8 +112,6 @@ DATABASES = {
         "PORT": os.environ.get("SQL_PORT", "5432"),
     }
 }
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators

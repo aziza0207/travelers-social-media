@@ -1,5 +1,6 @@
 from copy import deepcopy
-
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from django.db.models import Prefetch
 from rest_framework import viewsets, status
 from rest_framework.permissions import AllowAny
@@ -31,10 +32,14 @@ class PostViewSet(viewsets.ModelViewSet):
         if self.action == self.list.__name__:
             return queryset.order_by("-created_at")[:10]
         if self.action == self.retrieve.__name__:
-            return queryset.prefetch_related(
+            return queryset.annotate_rating_count().annotate_rating_avg().prefetch_related(
+                "tags",
                 Prefetch(
-                    "comments", queryset=Comment.objects.all().select_related("user").order_by("created_at")
-                )
+                    "comments",
+                    queryset=Comment.objects.all()
+                    .select_related("user")
+                    .order_by("created_at"),
+                ),
             )
         return queryset
 
@@ -66,6 +71,7 @@ class PostViewSet(viewsets.ModelViewSet):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+    @method_decorator(cache_page(60 * 10))
     @action(detail=False, methods=["get"])
     def my_subscribed_posts(self, request):
         user = self.request.user
@@ -76,3 +82,11 @@ class PostViewSet(viewsets.ModelViewSet):
             return self.get_paginated_response(serializer.data)
         serializer = self.get_serializer(user_posts, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @method_decorator(cache_page(60 * 10))
+    def list(self, request, *args, **kwargs):
+        return super(PostViewSet, self).list(request, *args, **kwargs)
+
+    @method_decorator(cache_page(60 * 10))
+    def retrieve(self, request, *args, **kwargs):
+        return super(PostViewSet, self).retrieve(request, *args, **kwargs)

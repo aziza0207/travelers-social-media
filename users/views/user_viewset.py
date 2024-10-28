@@ -1,3 +1,5 @@
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from django.db.models import Prefetch
 from rest_framework import viewsets
 from drf_spectacular.utils import extend_schema
@@ -79,3 +81,11 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response(data, status=status.HTTP_200_OK)
         else:
             raise AuthenticationFailed("Invalid credentials")
+
+    @method_decorator(cache_page(60 * 10))
+    def list(self, request, *args, **kwargs):
+        return super(UserViewSet, self).list(request, *args, **kwargs)
+
+    @method_decorator(cache_page(60 * 10))
+    def retrieve(self, request, *args, **kwargs):
+        return super(UserViewSet, self).retrieve(request, *args, **kwargs)

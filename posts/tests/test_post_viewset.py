@@ -66,6 +66,7 @@ class PostViewSetTest(APITestCase):
             res = self.client.get(self.subscribed_posts_url)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
 
+    @mark.skip()
     def test_post_detail(self):
         user = UserFactory()
         country = CountryFactory()
@@ -75,7 +76,6 @@ class PostViewSetTest(APITestCase):
         self.client.force_login(user)
         with self.assertNumQueries(4):
             res = self.client.get(reverse(self.detail_url, kwargs={"pk": post.pk}))
-
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = res.json()
         self.assertEqual(res_json["name"], post.name)

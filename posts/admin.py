@@ -1,5 +1,5 @@
 from django.contrib.admin import register, ModelAdmin, StackedInline
-from .models import Post, PostImage, Comment
+from .models import Post, PostImage, Comment, PostRating
 from common.custom_admin import ReadOnlyAdmin
 
 
@@ -24,3 +24,8 @@ class PostAdmin(ReadOnlyAdmin):
 @register(Comment)
 class CommentAdmin(ReadOnlyAdmin):
     list_display = ["content", "user", "post"]
+
+
+@register(PostRating)
+class PostRatingAdmin(ReadOnlyAdmin):
+    list_display = ["user", "post", "rating"]

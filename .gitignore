@@ -185,3 +185,5 @@ idea folder, uncomment if you don't need it
 .idea
 media
 .pytest_cache
+.env.db
+

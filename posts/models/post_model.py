@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 from autoslug import AutoSlugField
-
+from ..manager import CustomPostManager
 
 class Post(models.Model):
     slug = AutoSlugField(unique=True, db_index=True)
@@ -23,6 +23,8 @@ class Post(models.Model):
     is_visible = models.BooleanField(default=True, verbose_name="Видимый")
     tags = models.ManyToManyField("tags.Tag", default=None, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
+
+    objects = CustomPostManager()
 
     class Meta:
         verbose_name_plural = "Пост"

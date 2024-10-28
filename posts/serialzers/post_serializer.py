@@ -5,6 +5,8 @@ from ..models import Post, PostImage
 from tags.models import Tag
 from ..utils import compression_photo
 from .comment_serializer import CommentSerializer
+from tags.serializers import TagSerializer
+
 
 class PostSerializer(serializers.ModelSerializer):
     """Сериализатор поста."""
@@ -55,6 +57,10 @@ class PostCreateSerializer(serializers.ModelSerializer):
 
 class PostDetailSerializer(PostSerializer):
     comments = CommentSerializer(many=True)
+    tags = TagSerializer(many=True)
+    rating_count = serializers.IntegerField()
+    rating_avg = serializers.IntegerField()
+
     class Meta:
         model = Post
-        fields = PostSerializer.Meta.fields + ("comments",)
+        fields = PostSerializer.Meta.fields + ("comments", "tags", "rating_count", "rating_avg")

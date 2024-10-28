@@ -22,9 +22,7 @@ class PostRating(models.Model):
     class Meta:
         verbose_name = "Рейтинг поста"
         verbose_name_plural = "Рейтинги постов"
-        constraints = [
-            UniqueConstraint(fields=["post", "user"], name="unique_post_user_rating")
-        ]
+
 
     def __str__(self):
         return f"Рейтинг {self.rating} от {self.user.full_name} для поста {self.post.name}"

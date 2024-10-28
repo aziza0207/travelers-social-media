@@ -4,11 +4,13 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from .models import TagSubscription, Tag
+from .serializers import TagSerializer
 from common.permissions import IsAuthenticatedNotAdmin
 
 
 @extend_schema(tags=["TagSubscription"])
 class TagSubscriptionViewSet(viewsets.GenericViewSet):
+    serializer_class = TagSerializer
     permission_classes = (IsAuthenticatedNotAdmin,)
     queryset = TagSubscription.objects.all()
 
@@ -16,8 +18,8 @@ class TagSubscriptionViewSet(viewsets.GenericViewSet):
         return self.queryset.filter(user=self.request.user)
 
     @action(detail=False, methods=["post"])
-    def subscribe(self, request, tag_pk=None):
-        tag = get_object_or_404(Tag, pk=tag_pk)
+    def subscribe(self, request, slug=None):
+        tag = get_object_or_404(Tag, slug=slug)
         subscription, created = TagSubscription.objects.get_or_create(user=request.user, tag=tag)
 
         if created:
@@ -25,8 +27,8 @@ class TagSubscriptionViewSet(viewsets.GenericViewSet):
         return Response({"detail": "Вы уже подписаны"}, status=status.HTTP_200_OK)
 
     @action(detail=False, methods=["post"])
-    def unsubscribe(self, request, tag_pk=None):
-        tag = get_object_or_404(Tag, pk=tag_pk)
+    def unsubscribe(self, request, slug=None):
+        tag = get_object_or_404(Tag, slug=slug)
         subscription = TagSubscription.objects.filter(user=request.user, tag=tag).first()
 
         if subscription:

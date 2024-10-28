@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import PostViewSet, CommentViewSet
+from .views import PostViewSet, CommentViewSet, PostRatingViewSet
 
 urlpatterns = [
     path("", PostViewSet.as_view({"get": "list"}), name="post-list"),
@@ -10,5 +10,6 @@ urlpatterns = [
         PostViewSet.as_view({"get": "my_subscribed_posts"}),
         name="subscribed-posts",
     ),
-    path("comment/",  CommentViewSet.as_view({"post": "create"}), name="comment-create")
+    path("comment/",  CommentViewSet.as_view({"post": "create"}), name="comment-create"),
+    path("rating/", PostRatingViewSet.as_view({"post": "create"}), name="post-rating-create"),
 ]
