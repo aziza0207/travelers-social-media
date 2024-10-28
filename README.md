@@ -35,6 +35,10 @@ POSTGRES_DB=hello_django
 ```shell
 chmod +x /entrypoint.sh
 ```
+* для запуска тестов в контейнере
+```shell
+ docker compose run --rm django sh -c "pytest"
+```  
 ### После разворота
 
 Swagger - http://0.0.0.0/api/docs/
@@ -44,8 +48,11 @@ Swagger - http://0.0.0.0/api/docs/
 Admin - http://0.0.0.0/admin/ 
 
 ### Локальный запуск приложения без докер
+* Сделайте докер clone.
+* Активируйте виртуальное окружение в зависимости от операционной системы. Далее создайте файл в корневой директории.
+  
+  .env
 
-Создайте файл .env
 ```shell
 SECRET_KEY=my_secret
 SQL_ENGINE=django.db.backends.postgresql
@@ -54,6 +61,13 @@ SQL_USER=Ваше имя пользователя
 SQL_PASSWORD=Ваш пароль
 SQL_HOST=localhost
 SQL_PORT=5432
+
+DEFAULT_ADMIN_EMAIL=admin@example.com
+DEFAULT_ADMIN_PASSWORD=123
+
+REDIS_HOST=localhost
+REDIS_PORT=6379
+
 ```
 Установите зависимости
 
@@ -63,6 +77,10 @@ pip install -r requirements.txt
 Далее наберите команду
 ```shell
 python manage.py migrate
+```
+
+```shell
+python manage.py create_default_admin
 ```
 для заполнения базы странами
 ```shell
