@@ -1,12 +1,6 @@
 ## Локальный запуск приложения через docker-compose
-
-Наберите команду в терминале
-
-```shell
- docker compose up --build
-
-```
-Создайте файл .env в корневой директории
+* Сделайте clone репозиторя. Перейдите в корневую директорию. Создайте два файла в корневой директории.
+.env
 
 ```shell
 SECRET_KEY=my_secret
@@ -23,18 +17,19 @@ SQL_PORT=5432
 POSTGRES_USER=hello_django
 POSTGRES_PASSWORD=hello_django
 POSTGRES_DB=hello_django
-
 ```
-при необходимости найти разрешение на исполнение в терминале
+* Затем наберите команду находясь там же
+```shell
+ docker compose up --build
+```
+* при необходимости найти разрешение на исполнение в терминале
 
 ```shell
 chmod +x /entrypoint.sh
 ```
-
 ### После разворота
 
 Swagger - http://0.0.0.0/api/docs/
-
 Admin - http://0.0.0.0/admin/
 
 ## Локальный запуск приложения без докер
