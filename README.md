@@ -31,3 +31,19 @@ POSTGRES_DB=hello_django
 Swagger - http://0.0.0.0:8000/api/docs/
 
 Admin - http://0.0.0.0:8000/admin/
+
+## Локальный запуск приложения через docker-compose
+
+Создайте файл .env
+
+
+```shell
+SECRET_KEY=my_secret
+SQL_ENGINE=django.db.backends.postgresql
+SQL_DATABASE=
+SQL_USER=
+SQL_PASSWORD=
+SQL_HOST=localhost
+SQL_PORT=5432
+```
+
