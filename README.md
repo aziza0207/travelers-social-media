@@ -23,7 +23,7 @@ POSTGRES_DB=hello_django
 ```shell
  docker compose up --build
 ```
-* при необходимости найти разрешение на исполнение в терминале
+* при необходимости дайте разрешение на исполнение в терминале
 
 ```shell
 chmod +x /entrypoint.sh
