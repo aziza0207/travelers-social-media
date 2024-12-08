@@ -186,4 +186,4 @@ idea folder, uncomment if you don't need it
 media
 .pytest_cache
 .env.db
-
+/static/
