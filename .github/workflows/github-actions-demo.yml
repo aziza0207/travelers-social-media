@@ -8,7 +8,7 @@ jobs:
   build-test-push:
     services:
       postgres:
-        image: postgis/postgres:15
+        image: postgres:15
         env:
           POSTGRES_USER: "hello_django"
           POSTGRES_PASSWORD: "hello_django"
