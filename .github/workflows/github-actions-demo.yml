@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build-test-push:
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: "hello_django"
+          POSTGRES_PASSWORD: "hello_django"
+          POSTGRES_DB: "hello_django"
+        ports:
+          - 5432:5432
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build docker image
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          push: false
+          context: .
+          tags: my-backend-image:latest
+
+      - name: Start Redis
+        run: |
+          docker run -d --name redis \
+          redis:latest
+
+      - name: Test docker image
+        run: |
+          docker run \
+          -e SECRET_KEY='my_secret' \
+          --link redis:redis \
+          -e SQL_DATABASE='hello_django' \
+          -e SQL_USER='hello_django' \
+          -e SQL_PASSWORD='hello_django' \
+          -e SQL_HOST='hello_django' \
+          -e SQL_PORT=5432 \
+          my-backend-image:latest
+
+
+
+
+
+
