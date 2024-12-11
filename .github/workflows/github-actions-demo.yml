@@ -18,13 +18,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-#
-#      - name: Build docker image
-#        id: docker_build
-#        uses: docker/build-push-action@v2
-#        with:
-#          push: false
-#          context: .
+
+      - name: Build docker image
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          push: false
+          context: .
 #
 #      - name: Start Redis
 #        run: |
