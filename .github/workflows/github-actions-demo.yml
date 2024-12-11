@@ -37,10 +37,10 @@ jobs:
           -e SECRET_KEY='q3bD2FVRdQs2V05ddhKl0jS2UULVzVQbY2S19qp3Gn0' \
           --link redis:redis \
           --link celery:celery \
-          -e SQL_DATABASE='hello_django'
-          -e SQL_USER='hello_django'
-          -e SQL_PASSWORD='hello_django'
-          -e SQL_HOST='hello_django'
+          -e SQL_DATABASE='hello_django' \
+          -e SQL_USER='hello_django' \
+          -e SQL_PASSWORD='hello_django' \
+          -e SQL_HOST='hello_django' \
           -e SQL_PORT=5432
 
 
