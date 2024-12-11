@@ -42,7 +42,7 @@ jobs:
           -e SQL_USER='hello_django' \
           -e SQL_PASSWORD='hello_django' \
           -e SQL_HOST='hello_django' \
-          -e SQL_PORT=5432
+          -e SQL_PORT=5432 \
           my-backend-image:latest
 
 
