@@ -25,11 +25,11 @@ jobs:
         with:
           push: false
           context: .
-#
-#      - name: Start Redis
-#        run: |
-#          docker run -d --name redis \
-#          redis:latest
+
+      - name: Start Redis
+        run: |
+          docker run -d --name redis \
+          redis:latest
 #
 #      - name: Test docker image
 #        run: |
