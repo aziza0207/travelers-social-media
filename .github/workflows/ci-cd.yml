@@ -69,7 +69,7 @@ jobs:
       - name: Deploy
         uses: appleboy/ssh-action@master
         with:
-            host: ${{ vars.PRODUCTION_HOST }}
+            host: ${{ vars.HOST }}
             username: "root"
             key: ${{ secrets.SSH_KEY }}
 
