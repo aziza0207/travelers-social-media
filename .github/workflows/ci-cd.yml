@@ -64,6 +64,9 @@ jobs:
             host: ${{ vars.HOST }}
             username: "root"
             key: ${{ secrets.PRIVATE_SSH_KEY }}
+            script: |
+              docker pull aziza0207/travelers-social-media \
+              && docker-compose -f docker-compose.yml down \
 
 
 
