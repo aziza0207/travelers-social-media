@@ -58,6 +58,22 @@ jobs:
           tags: '${{ vars.DOCKER_BACKEND_PROD_IMAGE }}'
 
 
+      - name: Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ vars.PRODUCTION_HOST }}
+          username: "root"
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+
+      - name: Deploy
+        uses: appleboy/ssh-action@master
+        with:
+            host: ${{ vars.PRODUCTION_HOST }}
+            username: "root"
+            key: ${{ secrets.SSH_KEY }}
+
+
 
 
 
