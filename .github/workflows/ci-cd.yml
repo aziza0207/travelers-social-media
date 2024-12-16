@@ -57,21 +57,16 @@ jobs:
           context: .
           tags: '${{ vars.DOCKER_BACKEND_PROD_IMAGE }}'
 
-
       - name: Deploy
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ vars.PRODUCTION_HOST }}
-          username: "root"
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-
-      - name: Deploy
-        uses: appleboy/ssh-action@master
-        with:
-            host: ${{ vars.PRODUCTION_HOST }}
+            host: ${{ vars.HOST }}
             username: "root"
-            key: ${{ secrets.SSH_KEY }}
+            key: ${{ secrets.PRIVATE_SSH_KEY }}
+            script: |
+              docker pull aziza0207/travelers-social-media \
+              && docker-compose -f docker-compose.yml down \
+              && docker-compose -f docker-compose.yml up -d
 
 
 
