@@ -57,7 +57,6 @@ jobs:
           context: .
           tags: '${{ vars.DOCKER_BACKEND_PROD_IMAGE }}'
 
-
       - name: Deploy
         uses: appleboy/ssh-action@master
         with:
@@ -66,7 +65,8 @@ jobs:
             key: ${{ secrets.PRIVATE_SSH_KEY }}
             script: |
               docker pull aziza0207/travelers-social-media \
-              && docker-compose -f docker-compose.yml down 
+              && docker-compose -f docker-compose.yml down \
+              && docker-compose -f docker-compose.yml up -d
 
 
 
