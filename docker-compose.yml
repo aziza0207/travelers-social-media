@@ -1,0 +1,43 @@
+services:
+  django:
+    image: aziza0207/travelers-social-media:latest
+    command:  /usr/src/app/entrypoint.sh
+    expose:
+      - 8000
+    volumes:
+      - static_volume:/usr/src/app/static
+      - media_volume:/usr/src/app/media
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+    networks:
+      - backend
+
+  db:
+    image: postgres:15
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+        - .env.db
+    networks:
+      - backend
+
+  redis:
+    image: "redis:latest"
+    volumes:
+      - redis-data:/data
+
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+
+    networks:
+      - backend
+
+networks:
+   backend:
+       driver: bridge
+
+
+
