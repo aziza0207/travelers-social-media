@@ -9,7 +9,6 @@ done
 
 python manage.py flush --no-input
 python manage.py migrate
-python -m pytest .
 python manage.py create_default_admin
 python manage.py fetch_countries
 python manage.py collectstatic --no-input --clear
